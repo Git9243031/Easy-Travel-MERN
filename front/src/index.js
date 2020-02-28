@@ -1,12 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import App from "./App.js";
+import { render } from "react-dom";
+import GlobalStyle from "./theme/globalStyles";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import { Provider } from "react-redux";
+import configureStore from "./redux/configureStore";
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+import { IntlProvider } from "react-intl";
+import { local, messages } from "./locales";
+
+const store = configureStore();
+
+const renderApp = () =>
+  render(
+    <>
+      <GlobalStyle />
+      <Provider store={store}>
+        <IntlProvider locale={local} messages={messages}>
+          <App />
+        </IntlProvider>
+      </Provider>
+    </>,
+    document.getElementById("root")
+  );
+if (process.env.NODE_ENV !== "production" && module.hot) {
+  module.hot.accept("./App.js", renderApp);
+}
+renderApp();
