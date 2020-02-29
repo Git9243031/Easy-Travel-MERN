@@ -1,7 +1,9 @@
 import React from "react";
 import App from "./App.js";
 import { render } from "react-dom";
+import "./theme/reset.css";
 import GlobalStyle from "./theme/globalStyles";
+import "antd/dist/antd.css";
 
 import { Provider } from "react-redux";
 import configureStore from "./redux/configureStore";

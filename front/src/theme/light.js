@@ -10,6 +10,9 @@ const size = {
 
 const theme = {
   colors: {
+    bgMain: "#fff",
+    logo: "#7066ff",
+    navLink: "#333",
     primary: "#393956",
     secondary: "#2DD6AD"
   },
@@ -26,4 +29,4 @@ const theme = {
   }
 };
 
-export default theme
+export default theme;
