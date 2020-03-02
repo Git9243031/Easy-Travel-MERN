@@ -1,6 +1,12 @@
 import React from "react";
 import { SlideImg } from "./CarouselSlider.styles";
 
+const slides = [
+  "https://i.pinimg.com/originals/da/6a/2e/da6a2ef81dcea467c19d8a24d16ccf37.jpg",
+  "https://freedesignfile.com/upload/2017/07/Summer-travel-background-with-slippers-vectors.jpg",
+  "https://img5.goodfon.ru/wallpaper/nbig/2/2b/3d-grafika-kreativ-fon-tetrad-kurort-tropiki-more-solntse-pa.jpg"
+];
+
 const CarouselSlider = () => {
   return (
     <div
@@ -18,27 +24,13 @@ const CarouselSlider = () => {
         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
       </ol>
       <div className="carousel-inner">
-        <div className="carousel-item active">
-          <SlideImg
-            bg={
-              "https://i.pinimg.com/originals/da/6a/2e/da6a2ef81dcea467c19d8a24d16ccf37.jpg"
-            }
-          />
-        </div>
-        <div className="carousel-item">
-          <SlideImg
-            bg={
-              "https://freedesignfile.com/upload/2017/07/Summer-travel-background-with-slippers-vectors.jpg"
-            }
-          />
-        </div>
-        <div className="carousel-item">
-          <SlideImg
-            bg={
-              "https://freedesignfile.com/upload/2014/08/Travel-summer-beach-background-set-vector-01.jpg"
-            }
-          />
-        </div>
+        {slides.map((slide, index) => {
+          return (
+            <div key={index} className={`carousel-item ${index === 1 ? "active" : null}`}>
+              <SlideImg bg={slide} />
+            </div>
+          );
+        })}
       </div>
       <a
         className="carousel-control-prev"
