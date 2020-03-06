@@ -10,10 +10,12 @@ const size = {
 
 const theme = {
   colors: {
-    bgMain: "#222",
+    bgMain: "#000",
     logo: "red",
-    navLink: "#fff",
-    primary: "#393956",
+    navLink: "#eee",
+    text: "#eee",
+    btnColorText: "#fff",
+    primary: "#ff0052",
     secondary: "#2DD6AD"
   },
   borderRadius: "3px",

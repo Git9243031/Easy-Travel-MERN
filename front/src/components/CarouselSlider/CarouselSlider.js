@@ -4,7 +4,9 @@ import { SlideImg } from "./CarouselSlider.styles";
 const slides = [
   "https://i.pinimg.com/originals/da/6a/2e/da6a2ef81dcea467c19d8a24d16ccf37.jpg",
   "https://freedesignfile.com/upload/2017/07/Summer-travel-background-with-slippers-vectors.jpg",
-  "https://img5.goodfon.ru/wallpaper/nbig/2/2b/3d-grafika-kreativ-fon-tetrad-kurort-tropiki-more-solntse-pa.jpg"
+  "https://camptrekking.com/wp-content/uploads/2015/04/cropped-tour.png",
+  // "https://img.lovepik.com/photo/40015/5151.jpg_wh860.jpg",
+  // "https://s21.postimg.cc/kn2iqugh3/tour.jpg"
 ];
 
 const CarouselSlider = () => {
@@ -26,7 +28,10 @@ const CarouselSlider = () => {
       <div className="carousel-inner">
         {slides.map((slide, index) => {
           return (
-            <div key={index} className={`carousel-item ${index === 1 ? "active" : null}`}>
+            <div
+              key={index}
+              className={`carousel-item ${index === 1 ? "active" : null}`}
+            >
               <SlideImg bg={slide} />
             </div>
           );

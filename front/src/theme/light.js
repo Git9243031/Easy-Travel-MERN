@@ -13,8 +13,12 @@ const theme = {
     bgMain: "#fff",
     logo: "#7066ff",
     navLink: "#333",
-    primary: "#393956",
+    text: "#393956",
+    btnColorText: "#fff",
+    primary: "#40a9ff",
     secondary: "#2DD6AD"
+
+    // "#393956"
   },
   borderRadius: "3px",
   device: {

@@ -1,14 +1,14 @@
 import React from "react";
 import CarouselSlider from "../components/CarouselSlider/CarouselSlider";
 import { Content } from "../components/Content/Content.styles";
+import FilterBar from "../components/FilterBar/FilterBar";
 
 const MainPage = () => {
   return (
     <div>
       <CarouselSlider />
-      <Content>
-        <h1>efefefe</h1>
-      </Content>
+      <FilterBar />
+      <Content></Content>
     </div>
   );
 };

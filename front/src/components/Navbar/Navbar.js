@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavbarContainer } from "./Navbar.styles";
 import { Link } from "react-router-dom";
+import { SwitchStyled } from "../Switch/Switch.styles";
 
 const Navbar = () => {
+  const [disabled, setDisabled] = useState(
+    localStorage.theme === "light" ? true : false
+  );
+
+  const handleDisabledChange = () => {
+    setDisabled(!disabled);
+    disabled
+      ? localStorage.setItem("theme", "dark")
+      : localStorage.setItem("theme", "light");
+    window.location.reload(true);
+  };
   return (
     <NavbarContainer>
       <nav className="navbar navbar-expand-lg">
@@ -54,6 +66,11 @@ const Navbar = () => {
             </li>
              */}
           </ul>
+          <SwitchStyled
+            size="small"
+            checked={disabled}
+            onChange={handleDisabledChange}
+          />
         </div>
       </nav>
     </NavbarContainer>
