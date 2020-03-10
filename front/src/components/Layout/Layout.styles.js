@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 export const Layout = styled.div`
   ${({ theme }) => css`
-    height: 100vh;
+    min-height: 100vh;
     background: ${theme.colors.bgMain};
     margin: 5% 15%;
     border-radius: 16px;

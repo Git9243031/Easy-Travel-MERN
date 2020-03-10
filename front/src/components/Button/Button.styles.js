@@ -8,6 +8,7 @@ export const Button = styled.button`
     border: none;
     border-radius: 16px;
     background-color: ${theme.colors.primary};
+    margin: ${({ margin }) => margin};
 
     @media ${theme.device.mobileM} {
       width: ${({ widthMl }) => widthMl || "150px"};
