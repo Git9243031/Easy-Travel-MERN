@@ -39,22 +39,44 @@ router.post("/uploadImage", (req, res) => {
   });
 });
 
-router.post("/uploadProduct", (req, res) => {
-  // const newProduct = req.body;
-  // const product = Product(newProduct);
-  // product
-  // .save()
-  //   .then(() => {
-  //     return res.status(200).json({ success: true });
-  //   })
-  //   .catch(err => {
-  //     console.log(err)
-  //     return res.status(400).json({ success: false, err });
-  //   });
+router.post("/", (req, res) => {
+
+  const {
+    title,
+    description,
+    price,
+    images,
+    continents,
+    stars,
+    rate,
+    features,
+    views
+  } = req.body;
+
+  const newProduct = new Product({
+    title,
+    description,
+    price,
+    images,
+    continents,
+    stars,
+    rate,
+    features,
+    views
+  });
+
+  newProduct
+    .save()
+    .then(result => {
+      res.send({ status: false }, result);
+    })
+    .catch(err => {
+      res.status(200).send({ status: false }, err);
+    });
 });
 
 router.get("/", (req, res) => {
-  res.send(products);
+  res.status(400).send(products);
 });
 
 module.exports = router;

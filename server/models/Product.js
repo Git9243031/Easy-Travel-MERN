@@ -4,10 +4,10 @@ const Schema = mongoose.Schema;
 
 const productSchema = mongoose.Schema(
   {
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "User"
-    },
+    // user: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "User"
+    // },
     title: {
       type: String,
       maxLength: 50,
@@ -33,10 +33,14 @@ const productSchema = mongoose.Schema(
       type: Number,
       default: 1
     },
-    sold: {
+    rate: {
       type: Number,
-      maxLength: 100,
+      maxLength: 5,
       default: 0
+    },
+    features: {
+      type: Array,
+      required: true
     },
     views: {
       type: Number,

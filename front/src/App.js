@@ -15,8 +15,8 @@ const App = () => {
           <Navbar />
           <Switch>
             <Route exact path="/" component={MainPage} />
-            <Route exact path="/product/:id" component={SinglePage} />
             <Route exact path="/product/upload" component={UploadProductPage} />
+            <Route exact path="/product/:id" component={SinglePage} />
           </Switch>
         </Layout>
       </Router>
