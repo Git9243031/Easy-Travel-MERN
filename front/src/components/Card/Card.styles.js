@@ -2,7 +2,9 @@ import styled, { css } from "styled-components";
 
 export const CardContainer = styled.div`
   ${({ theme }) => css`
-    width: 250px;
+    width: 23%;
+    /* width: 250px; */
+    margin-bottom: 3%;
     padding: 0 0 15px 0;
     border-radius: 8px;
     overflow: hidden;
@@ -10,7 +12,7 @@ export const CardContainer = styled.div`
       0px -1px 16px rgba(0, 0, 0, 0.05), 0px 0px 4px rgba(206, 206, 206, 0.25);
     img {
       width: 100%;
-      height: 130px;
+      height: 150px;
     }
     .stars {
       font-size: 14px;

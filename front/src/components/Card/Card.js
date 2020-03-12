@@ -5,16 +5,14 @@ import { CardContainer, Price } from "./Card.styles";
 import CarouselSlider from "../CarouselSlider/CarouselSlider";
 import { Button } from "../Button/Button.styles";
 
-const Card = () => {
+const Card = ({ product }) => {
+  const { title, images } = product;
   return (
     <CardContainer>
-      <img
-        src="https://i.pinimg.com/originals/da/6a/2e/da6a2ef81dcea467c19d8a24d16ccf37.jpg"
-        alt=""
-      />
+      <img src={images[0]} alt="" />
       <div className="p-3">
         <div className="d-flex justify-content-between">
-          <Title size="18px">Plaza</Title>
+          <Title size="18px">{title}</Title>
           <Price>$220</Price>
         </div>
         <Rate className="stars mt-2 mb-3" />
