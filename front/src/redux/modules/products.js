@@ -67,19 +67,20 @@ export const productsReducer = combineReducers({
 //#region Thunks
 export const fetchProducts = () => dispatch => {
   dispatch(fetchProductsRequest());
-  console.log("redux tut");
-  return axios("/api/products", { method: "GET" })
-    .then(({ data }) => dispatch(fetchProductsSuccess(data)))
+  return axios
+    .get("/api/products")
+    .then(({ data }) => {
+      console.log("data: ", data);
+      dispatch(fetchProductsSuccess(data));
+    })
     .catch(err => dispatch(fetchProductsFailure(err)));
 };
 
 export const createProduct = inputValues => dispatch => {
   dispatch(createProductRequest(inputValues));
-  console.log("create prod");
   return axios
-  .post("http://localhost:5000/api/products/", inputValues)
-  .then(({ data }) => {
-    console.log("created data: ", data);
+    .post("/api/products/", inputValues)
+    .then(({ data }) => {
       dispatch(createProductSuccess(data));
       alert("product successfully uploaded");
       // props.history.push("/");

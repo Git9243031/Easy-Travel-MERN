@@ -40,7 +40,7 @@ router.post("/uploadImage", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-console.log("tut: " , req.body)
+  console.log("tut: ", req.body);
   const {
     title,
     description,
@@ -72,7 +72,13 @@ console.log("tut: " , req.body)
 });
 
 router.get("/", (req, res) => {
-  res.status(400).send(products);
+  Product.find()
+    .then(result => {
+      res.status(200).send(result);
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    });
 });
 
 module.exports = router;
