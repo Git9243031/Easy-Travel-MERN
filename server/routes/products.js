@@ -40,38 +40,34 @@ router.post("/uploadImage", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-
+console.log("tut: " , req.body)
   const {
     title,
     description,
     price,
     images,
-    continents,
+    continent,
     stars,
-    rate,
-    features,
-    views
+    features
   } = req.body;
 
   const newProduct = new Product({
     title,
     description,
+    continent,
     price,
     images,
-    continents,
     stars,
-    rate,
-    features,
-    views
+    features
   });
 
   newProduct
     .save()
     .then(result => {
-      res.send({ status: false }, result);
+      res.status(200).send(result);
     })
     .catch(err => {
-      res.status(200).send({ status: false }, err);
+      res.status(400).send(err);
     });
 });
 

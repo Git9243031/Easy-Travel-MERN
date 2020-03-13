@@ -5,7 +5,9 @@ import { Content } from "../../components/Content/Content.styles";
 import FileUploader from "../../components/FileUploader/FileUploader";
 import { Button } from "../../components/Button/Button.styles";
 import axios from "axios";
+import { createProduct } from "../../redux/modules/products";
 import { useForm } from "../../hooks/useForm";
+import { useDispatch } from "react-redux";
 
 const { Title } = Typography;
 
@@ -18,16 +20,26 @@ const continents = [
 ];
 
 const UploadProductPage = props => {
+  const dispatch = useDispatch();
   const [productInputs, setProductInputs] = useForm({
     title: "",
     description: "",
     continent: "",
     price: 0,
-    stars: 0
+    stars: 0,
+    features: ""
   });
-  const { title, description, continent, price, stars } = productInputs;
 
   const [images, setImages] = useState([]);
+
+  const {
+    title,
+    description,
+    continent,
+    price,
+    stars,
+    features
+  } = productInputs;
 
   const updateImages = newImages => {
     setImages(newImages);
@@ -36,29 +48,17 @@ const UploadProductPage = props => {
   const onSubmit = e => {
     e.preventDefault();
 
-    console.log("tut")
-
-    const variables = {
-      // user: 5848948949848498494, // Todo: get info from resux user.userData._id
+    const inputValues = {
       title,
       description,
       continent,
       price,
       stars,
-      images
+      images,
+      features
     };
 
-    axios
-      .post("http://localhost:5000/api/products/uploadProduct", variables)
-      .then(({ data }) => {
-        if (data.success) {
-          alert("Failed to upload product");
-          props.history.push("/");
-        } else {
-          alert("product successfully uploaded");
-        }
-      })
-      .catch(err => console.log(err));
+    dispatch(createProduct(inputValues));
   };
 
   return (
@@ -67,9 +67,8 @@ const UploadProductPage = props => {
         Upload Travel Product
       </Title>
       <Form>
+        <FileUploader updateImages={updateImages} />
         <FormGroup>
-          <FileUploader updateImages={updateImages} />
-
           <Label for="title">Title</Label>
           <Input
             onChange={setProductInputs}
@@ -77,6 +76,19 @@ const UploadProductPage = props => {
             type="title"
             name="title"
             id="title"
+            placeholder="Title"
+            required
+          />
+        </FormGroup>
+
+        <FormGroup>
+          <Label for="features">Features</Label>
+          <Input
+            onChange={setProductInputs}
+            value={features}
+            type="features"
+            name="features"
+            id="features"
             placeholder="Title"
             required
           />
@@ -111,7 +123,6 @@ const UploadProductPage = props => {
           <Label for="continent">Continents</Label>
           <Input
             onChange={setProductInputs}
-            value={continent}
             type="select"
             name="continent"
             id="continent"

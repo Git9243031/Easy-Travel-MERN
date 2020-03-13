@@ -25,21 +25,21 @@ const productSchema = mongoose.Schema(
       type: Array,
       default: []
     },
-    continents: {
-      type: Number,
-      default: 1
+    continent: {
+      type: String,
+      required: true
     },
     stars: {
       type: Number,
-      default: 1
+      default: 0
     },
     rate: {
       type: Number,
-      maxLength: 5,
+      maxLength: 100,
       default: 0
     },
     features: {
-      type: Array,
+      type: String,
       required: true
     },
     views: {
@@ -52,4 +52,4 @@ const productSchema = mongoose.Schema(
 
 const Product = mongoose.model("Product", productSchema);
 
-module.exports = Product ;
+module.exports = Product;
