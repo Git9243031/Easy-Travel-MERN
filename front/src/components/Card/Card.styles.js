@@ -2,9 +2,6 @@ import styled, { css } from "styled-components";
 
 export const CardContainer = styled.div`
   ${({ theme }) => css`
-    width: 23%;
-    /* width: 250px; */
-    margin-bottom: 3%;
     padding: 0 0 15px 0;
     border-radius: 8px;
     overflow: hidden;

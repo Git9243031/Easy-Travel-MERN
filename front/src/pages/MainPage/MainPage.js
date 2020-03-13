@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Input } from "antd";
+import { Input, Row } from "antd";
 import CarouselSlider from "../../components/CarouselSlider/CarouselSlider";
 import { Content } from "../../components/Content/Content.styles";
 import FilterBar from "../../components/FilterBar/FilterBar";
@@ -53,9 +53,15 @@ const MainPage = () => {
           className="mb-4"
           onChange={onFilter}
         />
-        {filteredProducts.map((product, index) => (
-          <Card key={index} product={product} />
-        ))}
+        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 24 }}>
+          {Array(10)
+            .fill(null)
+            .map(() =>
+              filteredProducts.map((product, index) => (
+                <Card key={index} product={product} />
+              ))
+            )}
+        </Row>
       </Content>
     </>
   );
