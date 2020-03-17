@@ -7,6 +7,8 @@ import Card from "../../components/Card/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../redux/modules/products";
 
+import Loader from "react-loader-spinner";
+
 const MainPage = () => {
   const dispatch = useDispatch();
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -54,13 +56,18 @@ const MainPage = () => {
           onChange={onFilter}
         />
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 24 }}>
-          {Array(10)
-            .fill(null)
-            .map(() =>
-              filteredProducts.map((product, index) => (
-                <Card key={index} product={product} />
-              ))
-            )}
+          <Loader type="Plane" color="#000" height={80} width={80} />
+          {products.length >= 0 ? (
+            Array(10)
+              .fill(null)
+              .map(() =>
+                filteredProducts.map((product, index) => (
+                  <Card key={index} product={product} />
+                ))
+              )
+          ) : (
+            <Loader type="Plane" color="#000" height={80} width={80} />
+          )}
         </Row>
       </Content>
     </>

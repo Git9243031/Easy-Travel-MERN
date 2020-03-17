@@ -1,3 +1,5 @@
+import bgLight from "../assets/images/bg_light.jpg";
+
 const size = {
   mobileS: "320px",
   mobileM: "375px",
@@ -10,7 +12,8 @@ const size = {
 
 const theme = {
   colors: {
-    bgMain: "#fff",
+    bgColor: "#fff",
+    bgMain: bgLight,
     logo: "#7066ff",
     navLink: "#333",
     text: "#393956",

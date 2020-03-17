@@ -4,10 +4,10 @@ import { Form, FormGroup, Label, Input } from "reactstrap";
 import { Content } from "../../components/Content/Content.styles";
 import FileUploader from "../../components/FileUploader/FileUploader";
 import { Button } from "../../components/Button/Button.styles";
-import axios from "axios";
 import { createProduct } from "../../redux/modules/products";
 import { useForm } from "../../hooks/useForm";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const { Title } = Typography;
 
@@ -20,11 +20,14 @@ const continents = [
 ];
 
 const UploadProductPage = props => {
+  const history = useHistory();
   const dispatch = useDispatch();
+
+
   const [productInputs, setProductInputs] = useForm({
     title: "",
     description: "",
-    continent: "",
+    continent: "Africa",
     price: 0,
     stars: 0,
     features: ""
@@ -57,8 +60,7 @@ const UploadProductPage = props => {
       images,
       features
     };
-
-    dispatch(createProduct(inputValues));
+    dispatch(createProduct(inputValues, history));
   };
 
   return (

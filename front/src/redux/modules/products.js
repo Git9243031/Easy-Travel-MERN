@@ -9,6 +9,10 @@ export const PRODUCTS_ACTIONS = {
   fetchProductsSuccess: "PRODUCTS > FETCH_SUCCESS",
   fetchProductsFailure: "PRODUCTS > FETCH_FAILURE",
 
+  fetchProductRequest: "PRODUCTS > FETCH_PRODUCT_REQUEST",
+  fetchProductSuccess: "PRODUCTS > FETCH_PRODUCT_SUCCESS",
+  fetchProductFailure: "PRODUCTS > FETCH_PRODUCT_FAILURE",
+
   createProductRequest: "PRODUCTS > CREATE_REQUEST",
   createProductSuccess: "PRODUCTS > CREATE_SUCCESS",
   createProductFailure: "PRODUCTS > CREATE_FAILURE"
@@ -30,6 +34,16 @@ export const fetchProductsSuccess = createAction(
 );
 export const fetchProductsFailure = createAction(
   PRODUCTS_ACTIONS.fetchProductsFailure
+);
+
+export const fetchProductRequest = createAction(
+  PRODUCTS_ACTIONS.fetchProductRequest
+);
+export const fetchProductSuccess = createAction(
+  PRODUCTS_ACTIONS.fetchProductSuccess
+);
+export const fetchProductFailure = createAction(
+  PRODUCTS_ACTIONS.fetchProductFailure
 );
 
 export const createProductRequest = createAction(
@@ -59,12 +73,31 @@ const products = handleActions(
   []
 );
 
+const product = handleActions(
+  {
+    [PRODUCTS_ACTIONS.fetchProductSuccess]: (state, action) => action.payload
+  },
+  {}
+);
+
 export const productsReducer = combineReducers({
-  products
+  products,
+  product
 });
 //#endregion
 
 //#region Thunks
+export const fetchProduct = id => dispatch => {
+  dispatch(fetchProductRequest(id));
+  return axios
+    .get(`/api/products/${id}`)
+    .then(({ data }) => {
+      console.log("data: ", data);
+      dispatch(fetchProductSuccess(data));
+    })
+    .catch(err => dispatch(fetchProductFailure(err)));
+};
+
 export const fetchProducts = () => dispatch => {
   dispatch(fetchProductsRequest());
   return axios
@@ -76,20 +109,15 @@ export const fetchProducts = () => dispatch => {
     .catch(err => dispatch(fetchProductsFailure(err)));
 };
 
-export const createProduct = inputValues => dispatch => {
+export const createProduct = (inputValues, history) => dispatch => {
   dispatch(createProductRequest(inputValues));
   return axios
     .post("/api/products/", inputValues)
     .then(({ data }) => {
       dispatch(createProductSuccess(data));
-      alert("product successfully uploaded");
-      // props.history.push("/");
+      history.push("/");
     })
     .catch(err => dispatch(createProductFailure(err)));
-
-  //  axios('/api/category/save', { data: values, method: 'POST' })
-  //     .then(response => dispatch(createProductSuccess(response.data)))
-  //     .catch(err => dispatch(createProductFailure(err)))
 };
 
 // export const updateCategory = (values, id) => dispatch => {

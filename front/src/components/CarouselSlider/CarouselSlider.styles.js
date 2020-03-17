@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { Carousel } from "antd";
 
 export const SlideImg = styled.div`
   ${({ theme }) => css`
@@ -25,4 +26,11 @@ export const SlideImg = styled.div`
       height: 300px;
     }
   `}
+`;
+
+export const CarouselAntStyled = styled(Carousel)`
+  img {
+    width: 100%;
+    height: 185px;
+  }
 `;

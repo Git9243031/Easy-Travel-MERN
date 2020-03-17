@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 export const NavbarContainer = styled.div`
   ${({ theme }) => css`
     nav {
-      background: ${theme.colors.bgMain};
+      background: ${theme.colors.bgColor};
       .logo-symbol {
         float: left;
         width: 44px;

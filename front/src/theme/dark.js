@@ -1,3 +1,5 @@
+import bgDark from "../assets/images/bg_dark.jpg";
+
 const size = {
   mobileS: "320px",
   mobileM: "375px",
@@ -10,7 +12,8 @@ const size = {
 
 const theme = {
   colors: {
-    bgMain: "#000",
+    bgColor: "#000",
+    bgMain: bgDark,
     logo: "red",
     navLink: "#eee",
     text: "#eee",

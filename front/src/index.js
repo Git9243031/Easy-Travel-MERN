@@ -5,8 +5,10 @@ import axios from "axios";
 import { IntlProvider } from "react-intl";
 import { local, messages } from "./locales";
 
+import Theme from "./theme";
 import "./theme/reset.css";
 import GlobalStyle from "./theme/globalStyles";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "antd/dist/antd.css";
 
 import App from "./App";
@@ -37,11 +39,13 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 render(
   <>
-    <GlobalStyle />
     <Provider store={store}>
-      <IntlProvider locale={local} messages={messages}>
-        <App />
-      </IntlProvider>
+      <Theme>
+        <GlobalStyle />
+        <IntlProvider locale={local} messages={messages}>
+          <App />
+        </IntlProvider>
+      </Theme>
     </Provider>
   </>,
   document.getElementById("root")

@@ -3,17 +3,17 @@ import { NavbarContainer } from "./Navbar.styles";
 import { Link } from "react-router-dom";
 import { SwitchStyled } from "../Switch/Switch.styles";
 
+import { useSelector, useDispatch } from "react-redux";
+import { setTheme } from "../../redux/modules/theme";
+
 const Navbar = () => {
-  const [disabled, setDisabled] = useState(
-    localStorage.theme === "light" ? true : false
-  );
+  const dispatch = useDispatch();
+  const theme = useSelector(state => state.theme);
+  const [disabled, setDisabled] = useState(theme === "light" ? true : false);
 
   const handleDisabledChange = () => {
     setDisabled(!disabled);
-    disabled
-      ? localStorage.setItem("theme", "dark")
-      : localStorage.setItem("theme", "light");
-    window.location.reload(true);
+    dispatch(setTheme());
   };
   return (
     <NavbarContainer>

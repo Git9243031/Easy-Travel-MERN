@@ -14,8 +14,9 @@ const FileUploader = props => {
     };
     formData.append("file", files[0]);
     //save the Image we chose inside the Node Server
+    
     axios
-      .post("http://localhost:5000/api/products/uploadImage/", formData, config)
+      .post("api/products/upload-image/", formData, config)
       .then(response => {
         if (response.data.success) {
           setImages([...images, response.data.image]);
@@ -46,7 +47,7 @@ const FileUploader = props => {
       </Dropzone>
       <PreviewBox>
         {images.map((image, index) => (
-          <div onClick={() => onDelete(image)}>
+          <div key={image + index} onClick={() => onDelete(image)}>
             <img
               width="300"
               height="240"
