@@ -9,6 +9,28 @@ const products = require("../mockData");
 //             Product
 //=================================
 
+router.get("/", (req, res) => {
+  Product.find()
+    .then(result => {
+      res.status(200).send(result);
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    });
+});
+
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
+  Product.findById(id)
+    .then(result => {
+      if (!result) return res.status(404).send({ err: "Not found" });
+      res.status(200).send(result);
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    });
+});
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");
@@ -27,8 +49,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }).single("file");
 
-router.post("/uploadImage", (req, res) => {
-  console.log("uploading...");
+router.post("/upload-image", (req, res) => {
   upload(req, res, err => {
     if (err) return res.json({ success: false, err });
     return res.json({
@@ -40,7 +61,7 @@ router.post("/uploadImage", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  console.log("tut: ", req.body);
+  console.log("body: ", req.body);
   const {
     title,
     description,
@@ -64,19 +85,11 @@ router.post("/", (req, res) => {
   newProduct
     .save()
     .then(result => {
+      console.log("good");
       res.status(200).send(result);
     })
     .catch(err => {
-      res.status(400).send(err);
-    });
-});
-
-router.get("/", (req, res) => {
-  Product.find()
-    .then(result => {
-      res.status(200).send(result);
-    })
-    .catch(err => {
+      console.log("bad");
       res.status(400).send(err);
     });
 });

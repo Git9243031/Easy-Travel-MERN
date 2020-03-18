@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import { CarouselAntStyled } from "./CarouselSlider.styles";
 
 const CarouselAnt = ({ images }) => {
@@ -14,6 +16,10 @@ const CarouselAnt = ({ images }) => {
       ))}
     </CarouselAntStyled>
   );
+};
+
+CarouselAnt.propTypes = {
+  images: PropTypes.array.isRequired
 };
 
 export default CarouselAnt;

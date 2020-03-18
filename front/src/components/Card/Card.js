@@ -1,5 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Rate, Col } from "antd";
+
 import { Title } from "../Title/Title";
 import { CardContainer, Price } from "./Card.styles";
 import { ButtonLink } from "../Button/Button.styles";
@@ -30,6 +32,10 @@ const Card = ({ product }) => {
       </CardContainer>
     </Col>
   );
+};
+
+Card.propTypes = {
+  product: PropTypes.object.isRequired
 };
 
 export default Card;

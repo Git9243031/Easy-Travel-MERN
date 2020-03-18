@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Input, Row } from "antd";
+import { Input, Row, Col } from "antd";
 import CarouselSlider from "../../components/CarouselSlider/CarouselSlider";
 import { Content } from "../../components/Content/Content.styles";
 import FilterBar from "../../components/FilterBar/FilterBar";
@@ -11,38 +11,38 @@ import Loader from "react-loader-spinner";
 
 const MainPage = () => {
   const dispatch = useDispatch();
-  const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchWord, setSearchWord] = useState("");
-  const { products } = useSelector(state => state.products);
+  const [searchWordProducts, setSearchWordProducts] = useState([]);
+  const { products, filtered } = useSelector(state => state.products);
 
-  const onFilter = e => {
-    setSearchWord(e.target.value);
-  };
-  // let filtered = products;
+  const [productList, setProductList] = useState([]);
+
+  useEffect(() => {
+    setProductList(filtered);
+  }, [filtered]);
+
+  useEffect(() => {
+    setProductList(products);
+  }, [products]);
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
 
   useEffect(() => {
-    if (searchWord === "") {
-      setFilteredProducts(products);
-    } else {
-      const filtered = products.filter(product => {
-        return (
+    if (searchWord.trim() !== "") {
+      const searchWordFilter = productList.filter(
+        product =>
           product.title.toLowerCase().indexOf(searchWord.toLowerCase()) !== -1
-        );
-      });
-      setFilteredProducts(filtered);
+      );
+      setSearchWordProducts(searchWordFilter);
     }
-  }, [products, searchWord]);
+    console.log(searchWord);
+  }, [searchWord]);
 
-  // useEffect(() => {
-  //   if (searchWord.trim() === "") {
-  //     setFilteredProducts();
-  //   } else {
-  //   }
-  // }, [searchWord]);
+  const onFilter = e => {
+    setSearchWord(e.target.value);
+  };
 
   return (
     <>
@@ -56,17 +56,23 @@ const MainPage = () => {
           onChange={onFilter}
         />
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 24 }}>
-          <Loader type="Plane" color="#000" height={80} width={80} />
-          {products.length >= 0 ? (
-            Array(10)
-              .fill(null)
-              .map(() =>
-                filteredProducts.map((product, index) => (
-                  <Card key={index} product={product} />
-                ))
-              )
+          {productList.length === 0 ? (
+            <div className="w-100 d-flex justify-content-center">
+              <div>
+                <h1>Nothing found, change filter options</h1>
+                <div className="w-100 d-flex justify-content-center">
+                  <Loader type="Plane" color="#000" height={80} width={80} />
+                </div>
+              </div>
+            </div>
+          ) : searchWord.trim() !== "" && searchWordProducts.length > 0 ? (
+            searchWordProducts.map((product, index) => (
+              <Card key={index} product={product} />
+            ))
           ) : (
-            <Loader type="Plane" color="#000" height={80} width={80} />
+            productList.map((product, index) => (
+              <Card key={index} product={product} />
+            ))
           )}
         </Row>
       </Content>

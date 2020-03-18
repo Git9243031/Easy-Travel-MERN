@@ -15,7 +15,7 @@ export const PRODUCTS_ACTIONS = {
 
   createProductRequest: "PRODUCTS > CREATE_REQUEST",
   createProductSuccess: "PRODUCTS > CREATE_SUCCESS",
-  createProductFailure: "PRODUCTS > CREATE_FAILURE"
+  createProductFailure: "PRODUCTS > CREATE_FAILURE",
 
   // deleteCategoryRequest: 'PRODUCTS > DELETE_REQUEST',
   // deleteCategorySuccess: 'PRODUCTS > DELETE_SUCCESS',
@@ -24,6 +24,10 @@ export const PRODUCTS_ACTIONS = {
   // updateCategoryRequest: 'PRODUCTS > UPDATE_REQUEST',
   // updateCategorySuccess: 'PRODUCTS > UPDATE_SUCCESS',
   // updateCategoryFailure: 'PRODUCTS > UPDATE_FAILURE',
+
+  filterProductsRequest: "PRODUCTS > FILTER_REQUEST",
+  filterProductsSuccess: "PRODUCTS > FILTER_SUCCESS",
+  filterProductsFailure: "PRODUCTS > FILTER_FAILURE"
 };
 
 export const fetchProductsRequest = createAction(
@@ -63,6 +67,16 @@ export const createProductFailure = createAction(
 // export const updateCategoryRequest = createAction(PRODUCTS_ACTIONS.updateCategoryRequest)
 // export const updateCategorySuccess = createAction(PRODUCTS_ACTIONS.updateCategorySuccess)
 // export const updateCategoryFailure = createAction(PRODUCTS_ACTIONS.updateCategoryFailure)
+
+export const filterProductsRequest = createAction(
+  PRODUCTS_ACTIONS.filterProductsRequest
+);
+export const filterProductsSuccess = createAction(
+  PRODUCTS_ACTIONS.filterProductsSuccess
+);
+export const filterProductsFailure = createAction(
+  PRODUCTS_ACTIONS.filterProductsFailure
+);
 //#endregion
 
 //#region Reducers
@@ -80,8 +94,16 @@ const product = handleActions(
   {}
 );
 
+const filtered = handleActions(
+  {
+    [PRODUCTS_ACTIONS.filterProductsSuccess]: (state, action) => action.payload
+  },
+  []
+);
+
 export const productsReducer = combineReducers({
   products,
+  filtered,
   product
 });
 //#endregion
@@ -137,5 +159,27 @@ export const createProduct = (inputValues, history) => dispatch => {
 //         })
 //         .catch(err => dispatch(deleteCategoryFailure(err)))
 // }
+
+export const filterProducts = (filterOptions, products) => dispatch => {
+  let filteredList = products.filter(
+    product => product.price >= filterOptions.minPrice
+  );
+
+  filteredList = filteredList.filter(
+    product => product.price <= filterOptions.maxPrice
+  );
+
+  filteredList = filteredList.filter(
+    product => product.stars <= filterOptions.stars
+  );
+
+  filteredList = filteredList.filter(product =>
+    filterOptions.continent.includes(product.continent)
+  );
+
+  dispatch(filterProductsSuccess(filteredList));
+
+  //  dispatch(fetchProductFailure();
+};
 
 //#endregion

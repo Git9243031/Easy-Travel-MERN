@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { NavbarContainer } from "./Navbar.styles";
 import { Link } from "react-router-dom";
-import { SwitchStyled } from "../Switch/Switch.styles";
-
 import { useSelector, useDispatch } from "react-redux";
+
+import { SwitchStyled } from "../Switch/Switch.styles";
 import { setTheme } from "../../redux/modules/theme";
 
 const Navbar = () => {

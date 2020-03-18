@@ -4,9 +4,7 @@ import { SlideImg } from "./CarouselSlider.styles";
 const slides = [
   "https://i.pinimg.com/originals/da/6a/2e/da6a2ef81dcea467c19d8a24d16ccf37.jpg",
   "https://freedesignfile.com/upload/2017/07/Summer-travel-background-with-slippers-vectors.jpg",
-  "https://camptrekking.com/wp-content/uploads/2015/04/cropped-tour.png",
-  // "https://img.lovepik.com/photo/40015/5151.jpg_wh860.jpg",
-  // "https://s21.postimg.cc/kn2iqugh3/tour.jpg"
+  "https://www.freegreatpicture.com/files/166/14533-synthesis-of-the-desktop.jpg"
 ];
 
 const CarouselSlider = () => {

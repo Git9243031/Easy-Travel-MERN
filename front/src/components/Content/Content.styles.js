@@ -7,9 +7,5 @@ export const Content = styled.div`
     background: ${theme.colors.bgColor};
     box-shadow: 0px 2px 4px rgba(206, 206, 206, 0.2),
       0px -1px 16px rgba(0, 0, 0, 0.05), 0px 0px 4px rgba(206, 206, 206, 0.25);
-    /* display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between; */
-    /* flex-direction: row; */
   `}
 `;

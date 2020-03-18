@@ -19,10 +19,9 @@ const continents = [
   "South North America"
 ];
 
-const UploadProductPage = props => {
+const UploadProductPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-
 
   const [productInputs, setProductInputs] = useForm({
     title: "",
@@ -146,8 +145,8 @@ const UploadProductPage = props => {
             id="stars"
           >
             {[...Array(5).keys()].map(option => (
-              <option key={option} value={option}>
-                {option}
+              <option key={option} value={++option}>
+                {++option}
               </option>
             ))}
             )}

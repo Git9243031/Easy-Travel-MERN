@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Dropzone from "react-dropzone";
-import { PlusOutlined } from "@ant-design/icons";
-import { UploaderContainer, DropBox, PreviewBox } from "./FileUploader.styles";
 import axios from "axios";
+import PropTypes from "prop-types";
+import { PlusOutlined } from "@ant-design/icons";
+
+import { UploaderContainer, DropBox, PreviewBox } from "./FileUploader.styles";
 
 const FileUploader = props => {
   const [images, setImages] = useState([]);
@@ -14,7 +16,7 @@ const FileUploader = props => {
     };
     formData.append("file", files[0]);
     //save the Image we chose inside the Node Server
-    
+
     axios
       .post("api/products/upload-image/", formData, config)
       .then(response => {
@@ -59,6 +61,10 @@ const FileUploader = props => {
       </PreviewBox>
     </UploaderContainer>
   );
+};
+
+FileUploader.propTypes = {
+  updateImages: PropTypes.func.isRequired
 };
 
 export default FileUploader;
