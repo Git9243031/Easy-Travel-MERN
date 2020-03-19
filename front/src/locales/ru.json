@@ -1,6 +1,5 @@
 {
-  "email": "Email",
-  "phone": "Phone",
-  "username": "Username",
-  "password": "Password"
+  "single-page.features": "Доп. Услуги",
+  "single-page.price": "Цена", 
+  "single-page.continent":"Континент"
 }

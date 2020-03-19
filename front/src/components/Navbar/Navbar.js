@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { SwitchStyled } from "../Switch/Switch.styles";
 import { setTheme } from "../../redux/modules/theme";
+import Languages from "../Languages/Languages";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -66,11 +67,14 @@ const Navbar = () => {
             </li>
              */}
           </ul>
-          <SwitchStyled
-            size="small"
-            checked={disabled}
-            onChange={handleDisabledChange}
-          />
+          <div className="d-flex align-items-center">
+            <Languages />
+            <SwitchStyled
+              size="small"
+              checked={disabled}
+              onChange={handleDisabledChange}
+            />
+          </div>
         </div>
       </nav>
     </NavbarContainer>

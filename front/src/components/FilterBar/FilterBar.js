@@ -15,64 +15,54 @@ import { getMin } from "../../utils/getMin";
 const FilterBar = () => {
   const dispatch = useDispatch();
 
-  const { products } = useSelector(state => state.products);
+  const [continent, setContinent] = useState([]);
+  const [maxPrice, setMaxPrice] = useState(0);
+  const [minPrice, setMinPrice] = useState(0);
+  const [stars, setStars] = useState(5);
 
-  const [filter, setFilter] = useState({
+  const [filterOptions, setFilterOptions] = useState({
     continent: [],
     minPrice: 0,
     maxPrice: 10000,
-    stars: 5
+    stars: 0
   });
-  const [continent, setContinent] = useState([]);
-  const [maxPrice, setMaxPrice] = useState(1000000);
-  const [minPrice, setMinPrice] = useState(0);
-  const [stars, setstars] = useState(5);
+
+  const { products } = useSelector(state => state.products);
 
   useEffect(() => {
-    console.log("Filter: ", filter);
-  }, [filter]);
+    setFilterOptions({
+      ...filterOptions,
+      continent,
+      maxPrice,
+      minPrice,
+      stars
+    });
+  }, [continent, maxPrice, minPrice, stars]);
 
   useEffect(() => {
     setContinent(getUnique(products, "continent"));
-    setMaxPrice(getMax(products, "price"));
-    setMinPrice(getMin(products, "price"));
-    setstars(getMax(products, "stars"));
+    setStars(getMax(products, "stars"));
   }, [products]);
 
-  const onSliderHandler = e => {
-    console.log("Slider: ", e);
-    setFilter({
-      ...filter,
-      minPrice: e[0],
-      maxPrice: e[1]
-    });
-  };
-
-  const onSelectHandler = e => {
-    console.log("Select: ", e);
-    setFilter({
-      ...filter,
-      continent: e
-    });
-  };
-
-  const onStarsHandler = e => {
-    console.log("Stars: ", e);
-    setFilter({
-      ...filter,
-      stars: e
-    });
-  };
-
-  const onFilterHandler = () => {
-    dispatch(filterProducts(filter, products));
-  };
+  const onSelectHandler = e => {};
 
   return (
     <FilterBarStyled className="bg-dark">
+      <div
+        onClick={() => {
+          filterOptions.continent.push("Tahs");
+          console.log(filterOptions.continent);
+        }}
+      >
+        {filterOptions.continent}
+      </div>
       <Row gutter={[16, 16]} className="py-4 px-4 m-0">
         <Col className="w-100 d-md-flex justify-content-between">
-          <SelectFilter items={continent} onSelectHandler={onSelectHandler} />
+          <SelectFilter
+            items={filterOptions.continent}
+            defaultValue={filterOptions.continent}
+            onSelectHandler={onSelectHandler}
+          />
           <SliderStyled
             width="100%"
             className="d-block mx-auto mx-md-5 my-sm-4 my-md-auto"
@@ -80,14 +70,18 @@ const FilterBar = () => {
             defaultValue={[minPrice, maxPrice]}
             min={0}
             max={10000}
-            onChange={onSliderHandler}
+            // onChange={onSliderHandler}
           />
           <Rate
             className="w-50"
             defaultValue={stars}
-            onChange={onStarsHandler}
+            // onChange={onStarsHandler}
           />
-          <Button height="30px" className="w-50" onClick={onFilterHandler}>
+          <Button
+            height="30px"
+            className="w-50"
+            // onClick={onFilterHandler}
+          >
             Search
           </Button>
         </Col>

@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { Row, Col, Rate } from "antd";
+import { FormattedMessage } from "react-intl";
+
 import { SinglePageContainer } from "./SinglePage.styles";
 import { Title } from "../../components/Title/Title";
 import { Content } from "../../components/Content/Content.styles";
@@ -11,16 +13,30 @@ const SinglePage = props => {
   const dispatch = useDispatch();
 
   const product = useSelector(state => state.products.product);
-  const { title } = product;
+  const {
+    title,
+    price,
+    stars,
+    features,
+    continent,
+    description,
+    images
+  } = product;
 
   useEffect(() => {
     const id = props.match.params.id;
     dispatch(fetchProduct(id));
   }, []);
-
   return (
     <SinglePageContainer>
-      <CarouselSlider />
+      <CarouselSlider
+        // slides={[
+        //   "http://localhost:5000/uploads/1584361381488_paris-view-over-paris-i21042.jpg",
+        //   "https://freedesignfile.com/upload/2017/07/Summer-travel-background-with-slippers-vectors.jpg",
+        //   "https://www.freegreatpicture.com/files/166/14533-synthesis-of-the-desktop.jpg"
+        // ]}
+        slides={images}
+      />
       <Content>
         <Row>
           <Col span={24}></Col>
@@ -30,27 +46,47 @@ const SinglePage = props => {
             <Title bold size="28px">
               {title}
             </Title>
-            <span>$110</span>
-            <Title size="14px">Continent: Africa</Title>
-            <Rate />
+            <Title size="14px" lineHeight="32px">
+              <span className="font-weight-bold title">
+                <FormattedMessage
+                  id="single-page.price"
+                  defaultMessage="single-page.price"
+                />
+                :
+              </span>
+              ${price}
+            </Title>
+            <Title size="14px" lineHeight="32px">
+              <span className="font-weight-bold title">
+                <FormattedMessage
+                  id="single-page.continent"
+                  defaultMessage="single-page.continent"
+                />
+                :
+              </span>
+              {continent}
+            </Title>
+            <Rate value={stars} disabled={true} />
             <hr />
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the standard dummy text. Lorem
-              Ipsum is simply dummy text of the printing and typesetting
-              industry.
-            </p>
+            <p>{description}</p>
             <hr />
           </Col>
           <Col span={8} offset={4}>
             <Title bold size="28px">
-              Features
+              <FormattedMessage
+                id="single-page.features"
+                defaultMessage="single-page.features"
+              />
             </Title>
             <ul className="features-list">
-              <li>Delivery to hotel</li>
-              <li>Breackfast</li>
-              <li>Private beach</li>
-              <li>Wi-fi</li>
+              {features &&
+                features
+                  .split(",")
+                  .map(feature => (
+                    <li className="text-capitalize font-weight-bold">
+                      {feature}
+                    </li>
+                  ))}
             </ul>
           </Col>
         </Row>

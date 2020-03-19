@@ -17,17 +17,11 @@ export const PRODUCTS_ACTIONS = {
   createProductSuccess: "PRODUCTS > CREATE_SUCCESS",
   createProductFailure: "PRODUCTS > CREATE_FAILURE",
 
-  // deleteCategoryRequest: 'PRODUCTS > DELETE_REQUEST',
-  // deleteCategorySuccess: 'PRODUCTS > DELETE_SUCCESS',
-  // deleteCategoryFailure: 'PRODUCTS > DELETE_FAILURE',
-
-  // updateCategoryRequest: 'PRODUCTS > UPDATE_REQUEST',
-  // updateCategorySuccess: 'PRODUCTS > UPDATE_SUCCESS',
-  // updateCategoryFailure: 'PRODUCTS > UPDATE_FAILURE',
-
   filterProductsRequest: "PRODUCTS > FILTER_REQUEST",
   filterProductsSuccess: "PRODUCTS > FILTER_SUCCESS",
-  filterProductsFailure: "PRODUCTS > FILTER_FAILURE"
+  filterProductsFailure: "PRODUCTS > FILTER_FAILURE",
+
+  filterOptionSet: "PRODUCTS > FILTER_OPTION_SET"
 };
 
 export const fetchProductsRequest = createAction(
@@ -60,14 +54,6 @@ export const createProductFailure = createAction(
   PRODUCTS_ACTIONS.createProductFailure
 );
 
-// export const deleteCategoryRequest = createAction(PRODUCTS_ACTIONS.deleteCategoryRequest)
-// export const deleteCategorySuccess = createAction(PRODUCTS_ACTIONS.deleteCategorySuccess)
-// export const deleteCategoryFailure = createAction(PRODUCTS_ACTIONS.deleteCategoryFailure)
-
-// export const updateCategoryRequest = createAction(PRODUCTS_ACTIONS.updateCategoryRequest)
-// export const updateCategorySuccess = createAction(PRODUCTS_ACTIONS.updateCategorySuccess)
-// export const updateCategoryFailure = createAction(PRODUCTS_ACTIONS.updateCategoryFailure)
-
 export const filterProductsRequest = createAction(
   PRODUCTS_ACTIONS.filterProductsRequest
 );
@@ -77,6 +63,9 @@ export const filterProductsSuccess = createAction(
 export const filterProductsFailure = createAction(
   PRODUCTS_ACTIONS.filterProductsFailure
 );
+
+export const filterOptionSet = createAction(PRODUCTS_ACTIONS.filterOptionSet);
+
 //#endregion
 
 //#region Reducers
@@ -141,24 +130,6 @@ export const createProduct = (inputValues, history) => dispatch => {
     })
     .catch(err => dispatch(createProductFailure(err)));
 };
-
-// export const updateCategory = (values, id) => dispatch => {
-//     dispatch(updateCategoryRequest(values))
-
-//     return axios('/api/category/update/' + id, { data: values, method: 'POST' })
-//         .then(response => dispatch(updateCategorySuccess(response.data)))
-//         .catch(err => dispatch(updateCategoryFailure(err)))
-// }
-
-// export const deleteCategory = values => dispatch => {
-//     dispatch(deleteCategoryRequest(values))
-
-//     return axios('/api/category/delete/' + values, {method: 'POST'})
-//         .then((response) => {
-//             dispatch(deleteCategorySuccess(response.data))
-//         })
-//         .catch(err => dispatch(deleteCategoryFailure(err)))
-// }
 
 export const filterProducts = (filterOptions, products) => dispatch => {
   let filteredList = products.filter(

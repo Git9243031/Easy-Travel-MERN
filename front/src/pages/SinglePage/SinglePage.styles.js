@@ -8,4 +8,7 @@ export const SinglePageContainer = styled.div`
       line-height: 38px;
     }
   }
+  .title {
+    margin-right: 5px;
+  }
 `;

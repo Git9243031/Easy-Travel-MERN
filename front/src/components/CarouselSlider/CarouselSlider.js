@@ -1,13 +1,9 @@
 import React from "react";
 import { SlideImg } from "./CarouselSlider.styles";
 
-const slides = [
-  "https://i.pinimg.com/originals/da/6a/2e/da6a2ef81dcea467c19d8a24d16ccf37.jpg",
-  "https://freedesignfile.com/upload/2017/07/Summer-travel-background-with-slippers-vectors.jpg",
-  "https://www.freegreatpicture.com/files/166/14533-synthesis-of-the-desktop.jpg"
-];
+const CarouselSlider = ({ slides }) => {
+  const currentLocation = window.location.pathname;
 
-const CarouselSlider = () => {
   return (
     <div
       id="carouselExampleIndicators"
@@ -24,16 +20,26 @@ const CarouselSlider = () => {
         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
       </ol>
       <div className="carousel-inner">
-        {slides.map((slide, index) => {
-          return (
-            <div
-              key={index}
-              className={`carousel-item ${index === 1 ? "active" : null}`}
-            >
-              <SlideImg bg={slide} />
-            </div>
-          );
-        })}
+        {slides &&
+          slides.map((slide, index) => {
+            return (
+              <div
+                key={index}
+                className={`carousel-item ${index + 1 === 1 ? "active" : null}`}
+              >
+                <SlideImg
+                  bg={
+                    currentLocation === "/"
+                      ? slide
+                      : `${process.env.REACT_APP_API_URL}/${slide.replace(
+                          "\\",
+                          "/"
+                        )}`
+                  }
+                />
+              </div>
+            );
+          })}
       </div>
       <a
         className="carousel-control-prev"

@@ -1,6 +1,5 @@
 {
-    "email": "Email",
-    "phone": "Phone",
-    "username": "Username",
-    "password": "Password"
+"single-page.features": "Features",
+"single-page.price": "Price",
+"single-page.continent": "Continent"
 }
