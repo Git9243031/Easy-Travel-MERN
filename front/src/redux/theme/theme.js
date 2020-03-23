@@ -9,11 +9,12 @@ export const setTheme = createAction(THEME_ACTIONS.setTheme);
 //#endregion
 
 //#region Reducer
+const themeInitial = localStorage.theme ? localStorage.theme : "light";
+
 export const themeReducer = handleActions(
   {
-    [THEME_ACTIONS.setTheme]: (state, action) =>
-      state === "light" ? "dark" : "light" // action.payload || state
+    [THEME_ACTIONS.setTheme]: state => (state === "light" ? "dark" : "light") // action.payload || state
   },
-  "light"
+  themeInitial
 );
 //#endregion

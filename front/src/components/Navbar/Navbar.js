@@ -13,6 +13,11 @@ const Navbar = () => {
   const [disabled, setDisabled] = useState(theme === "light" ? true : false);
 
   const handleDisabledChange = () => {
+    if (localStorage.theme === "dark") {
+      localStorage.setItem("theme", "light");
+    } else {
+      localStorage.setItem("theme", "dark");
+    }
     setDisabled(!disabled);
     dispatch(setTheme());
   };

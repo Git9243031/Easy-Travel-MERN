@@ -1,15 +1,13 @@
 import { useState } from "react";
 
 export const useForm = initialValues => {
-  const [values, setValues] = useState(initialValues);
+  const [state, setState] = useState(initialValues);
 
   return [
-    values,
-    e => {
-      setValues({
-        ...values,
-        [e.target.name]: e.target.value
-      });
-    }
+    state,
+    ({ target: { name, value } }) => {
+      setState(prev => ({ ...prev, [name]: value }));
+    },
+    setState
   ];
 };
