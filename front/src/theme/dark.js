@@ -19,6 +19,7 @@ const theme = {
     text: "#eee",
     btnColorText: "#fff",
     primary: "#ff0052",
+    primaryHover: "#ff6500",
     secondary: "#2DD6AD"
   },
   borderRadius: "3px",

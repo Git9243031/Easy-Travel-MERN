@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { SwitchStyled } from "../Switch/Switch.styles";
-import { setTheme } from "../../redux/modules/theme";
+import { setTheme } from "../../redux/theme/theme";
 import Languages from "../Languages/Languages";
 
 const Navbar = () => {

@@ -6,7 +6,7 @@ import { LANGUAGES } from "../../constants/Languages";
 const menu = (
   <Menu>
     {LANGUAGES.map(lang => (
-      <Menu.Item>
+      <Menu.Item key={lang.code}>
         <div
           className="d-flex justify-content-center align-items-center"
           onClick={() => {
@@ -26,7 +26,6 @@ const Languages = () => {
   useEffect(() => {
     if (localStorage.language) {
       LANGUAGES.forEach(lang => {
-        console.log("ggg :  ", localStorage.language.split(/[,]/)[0]);
         return lang.code === localStorage.language.split(/[,]/)[0]
           ? setCurrentLang(lang)
           : null;
@@ -36,13 +35,13 @@ const Languages = () => {
 
   return (
     <Dropdown overlay={menu}>
-      <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+      <div className="ant-dropdown-link" onClick={e => e.preventDefault()}>
         <div className="d-flex justify-content-center align-items-center">
           <img width="20" src={currentLang.icon} alt="ru" />
           <span className="ml-2">{currentLang.title}</span>
           <DownOutlined className="mx-2" />
         </div>
-      </a>
+      </div>
     </Dropdown>
   );
 };

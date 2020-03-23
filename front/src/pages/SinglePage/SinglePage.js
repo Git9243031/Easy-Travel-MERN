@@ -7,12 +7,13 @@ import { Title } from "../../components/Title/Title";
 import { Content } from "../../components/Content/Content.styles";
 import CarouselSlider from "../../components/CarouselSlider/CarouselSlider";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProduct } from "../../redux/modules/products";
+import { fetchProduct } from "../../redux/products/thunks";
 
 const SinglePage = props => {
   const dispatch = useDispatch();
 
   const product = useSelector(state => state.products.product);
+
   const {
     title,
     price,
@@ -26,17 +27,11 @@ const SinglePage = props => {
   useEffect(() => {
     const id = props.match.params.id;
     dispatch(fetchProduct(id));
-  }, []);
+  }, [dispatch, props.match.params]);
+
   return (
     <SinglePageContainer>
-      <CarouselSlider
-        // slides={[
-        //   "http://localhost:5000/uploads/1584361381488_paris-view-over-paris-i21042.jpg",
-        //   "https://freedesignfile.com/upload/2017/07/Summer-travel-background-with-slippers-vectors.jpg",
-        //   "https://www.freegreatpicture.com/files/166/14533-synthesis-of-the-desktop.jpg"
-        // ]}
-        slides={images}
-      />
+      <CarouselSlider slides={images} />
       <Content>
         <Row>
           <Col span={24}></Col>
@@ -80,13 +75,14 @@ const SinglePage = props => {
             </Title>
             <ul className="features-list">
               {features &&
-                features
-                  .split(",")
-                  .map(feature => (
-                    <li className="text-capitalize font-weight-bold">
-                      {feature}
-                    </li>
-                  ))}
+                features.split(",").map(feature => (
+                  <li
+                    key={feature}
+                    className="text-capitalize font-weight-bold"
+                  >
+                    {feature}
+                  </li>
+                ))}
             </ul>
           </Col>
         </Row>

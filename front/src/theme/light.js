@@ -19,6 +19,7 @@ const theme = {
     text: "#393956",
     btnColorText: "#fff",
     primary: "#40a9ff",
+    primaryHover: "#7066ff",
     secondary: "#2DD6AD"
 
     // "#393956"

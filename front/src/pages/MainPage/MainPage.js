@@ -1,33 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { Input, Row, Col } from "antd";
+import { Input, Row } from "antd";
 import CarouselSlider from "../../components/CarouselSlider/CarouselSlider";
 import { Content } from "../../components/Content/Content.styles";
-import FilterBar from "../../components/FilterBar/FilterBar";
+// import FilterBar from "../../components/FilterBar/FilterBar";
 import Card from "../../components/Card/Card";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../../redux/modules/products";
+import { fetchProducts } from "../../redux/products/thunks";
 
 import Loader from "react-loader-spinner";
 
 const MainPage = () => {
   const dispatch = useDispatch();
+
   const [searchWord, setSearchWord] = useState("");
   const [searchWordProducts, setSearchWordProducts] = useState([]);
-  const { products, filtered } = useSelector(state => state.products);
-
   const [productList, setProductList] = useState([]);
 
-  useEffect(() => {
-    setProductList(filtered);
-  }, [filtered]);
+  const { products } = useSelector(state => state.products);
+
+  // useEffect(() => {
+  //   setProductList(filtered);
+  // }, [filtered]);
 
   useEffect(() => {
+    console.log("1: ", products);
     setProductList(products);
   }, [products]);
 
   useEffect(() => {
     dispatch(fetchProducts());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (searchWord.trim() !== "") {
@@ -37,8 +39,7 @@ const MainPage = () => {
       );
       setSearchWordProducts(searchWordFilter);
     }
-    console.log(searchWord);
-  }, [searchWord]);
+  }, [searchWord, productList]);
 
   const onFilter = e => {
     setSearchWord(e.target.value);
@@ -53,7 +54,7 @@ const MainPage = () => {
           "https://www.freegreatpicture.com/files/166/14533-synthesis-of-the-desktop.jpg"
         ]}
       />
-      <FilterBar />
+      {/* <FilterBar /> */}
       <Content>
         <Input
           name="filter"

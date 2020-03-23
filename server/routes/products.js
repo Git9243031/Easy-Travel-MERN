@@ -12,11 +12,9 @@ const products = require("../mockData");
 router.get("/", (req, res) => {
   Product.find()
     .then(result => {
-      res.status(200).send(result);
+      res.status(200).json(result);
     })
-    .catch(err => {
-      res.status(400).send(err);
-    });
+    .catch(err => res.status(400).json(err));
 });
 
 router.get("/:id", (req, res) => {
@@ -83,15 +81,13 @@ router.post("/", (req, res) => {
   });
 
   newProduct
-    .save()
-    .then(result => {
-      console.log("good");
-      res.status(200).send(result);
+    .save(result => {
+      res.status(200).json({
+        success: true,
+        data: result
+      });
     })
-    .catch(err => {
-      console.log("bad");
-      res.status(400).send(err);
-    });
+    .catch(err => res.status(400).json({ success: false, err }));
 });
 
 module.exports = router;

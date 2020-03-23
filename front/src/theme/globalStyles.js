@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
         font-family: "Poppins", sans-serif;
         background-image: url(${theme.colors.bgMain});
         background-size: 400px 400px;
+        color: ${theme.colors.text}
       }
     `}
 `;
