@@ -58,36 +58,34 @@ router.post("/upload-image", (req, res) => {
   });
 });
 
-router.post("/", (req, res) => {
-  console.log("body: ", req.body);
-  const {
-    title,
-    description,
-    price,
-    images,
-    continent,
-    stars,
-    features
-  } = req.body;
+router
+  .post("/", (req, res) => {
+    console.log("body: ", req.body);
+    // const {
+    //   title,
+    //   description,
+    //   price,
+    //   images,
+    //   continent,
+    //   stars,
+    //   features
+    // } = req.body;
 
-  const newProduct = new Product({
-    title,
-    description,
-    continent,
-    price,
-    images,
-    stars,
-    features
+    const newProduct = new Product({
+      ...req.body
+    });
+
+    newProduct
+      .save()
+      .then(result => {
+        res.status(200).json(result);
+      })
+      .catch(err => res.status(400).json(err));
+  })
+  .delete("/:id", (req, res) => {
+    Product.findByIdAndDelete(req.params.id)
+      .then(() => console.log())
+      .catch(err => res.json(err));
   });
-
-  newProduct
-    .save(result => {
-      res.status(200).json({
-        success: true,
-        data: result
-      });
-    })
-    .catch(err => res.status(400).json({ success: false, err }));
-});
 
 module.exports = router;

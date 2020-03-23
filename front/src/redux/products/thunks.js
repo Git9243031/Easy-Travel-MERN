@@ -7,7 +7,10 @@ import {
   fetchProductFailure,
   createProductRequest,
   createProductSuccess,
-  createProductFailure
+  createProductFailure,
+  editProductRequest,
+  editProductSuccess,
+  editProductFailure
 } from "./actions";
 import axios from "axios";
 
@@ -21,7 +24,7 @@ export const fetchProduct = id => dispatch => {
     .then(({ data }) => {
       dispatch(fetchProductSuccess(data));
     })
-    .catch(err => dispatch(fetchProductFailure(err)));  
+    .catch(err => dispatch(fetchProductFailure(err)));
 };
 
 export const fetchProducts = () => dispatch => {
@@ -35,16 +38,27 @@ export const fetchProducts = () => dispatch => {
     .catch(err => dispatch(fetchProductsFailure(err)));
 };
 
-// export const createProduct = (inputValues, history) => dispatch => {
-//   dispatch(createProductRequest(inputValues));
-//   return axios
-//     .post("/api/products/", inputValues)
-//     .then(({ data }) => {
-//       dispatch(createProductSuccess(data));
-//       history.push("/");
-//     })
-//     .catch(err => dispatch(createProductFailure(err)));
-// };
+export const createProduct = (inputValues, history) => dispatch => {
+  dispatch(createProductRequest());
+  return axios
+    .post("/api/products/", inputValues)
+    .then(({ data }) => {
+      dispatch(createProductSuccess());
+      history.push(`/products/${data._id}`);
+    })
+    .catch(err => dispatch(createProductFailure(err)));
+};
+
+export const editProduct = (inputValues, history) => dispatch => {
+  dispatch(editProductRequest());
+  return axios
+    .put("/api/products/", inputValues) //TODO: put route on the server
+    .then(() => {
+      dispatch(editProductSuccess());
+      history.push(`/`);
+    })
+    .catch(err => dispatch(editProductFailure(err)));
+};
 
 // export const filterProducts = (filterOptions, products) => dispatch => {
 //   let filteredList = products.filter(

@@ -8,7 +8,10 @@ import {
   fetchProductFailure,
   createProductRequest,
   createProductSuccess,
-  createProductFailure
+  createProductFailure,
+  editProductRequest,
+  editProductSuccess,
+  editProductFailure
 } from "./actions";
 
 const initialState = {
@@ -20,6 +23,20 @@ const initialState = {
 
 export default handleActions(
   {
+    [createProductRequest]: state => ({
+      ...state,
+      isLoading: true,
+      error: null
+    }),
+    [createProductSuccess]: state => ({
+      ...state,
+      isLoading: false
+    }),
+    [createProductFailure]: (state, action) => ({
+      ...state,
+      error: action.error,
+      isLoading: false
+    }),
     [fetchProductsRequest]: state => ({
       ...state,
       isLoading: true,
@@ -46,6 +63,21 @@ export default handleActions(
       isLoading: false
     }),
     [fetchProductFailure]: (state, action) => ({
+      ...state,
+      error: action.error,
+      isLoading: false
+    }),
+
+    [editProductRequest]: state => ({
+      ...state,
+      isLoading: true,
+      error: null
+    }),
+    [editProductSuccess]: state => ({
+      ...state,
+      isLoading: false
+    }),
+    [editProductFailure]: (state, action) => ({
       ...state,
       error: action.error,
       isLoading: false

@@ -14,9 +14,9 @@ const App = () => {
         <Navbar />
         <Switch>
           <Route exact path="/" component={MainPage} />
+          <Route exact path="/products/upload" component={UploadProductPage} />
           <Route exact path="/products/:id" component={SinglePage} />
           <Route exact path="/products/edit/:id" component={EditProduct} />
-          {/* <Route exact path="/product/upload" component={UploadProductPage} /> */}
         </Switch>
       </Layout>
     </Router>
