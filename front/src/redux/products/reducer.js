@@ -17,6 +17,7 @@ import {
 const initialState = {
   products: [],
   product: {},
+  filters: {},
   isLoading: false,
   error: null
 };

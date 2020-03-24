@@ -12,8 +12,11 @@ import {
   editProductSuccess,
   editProductFailure
 } from "./actions";
+import { setFilters, setUserFilters } from "../filters/filters";
+
 import axios from "axios";
 
+import { getFilters } from "../../utils/getFilters";
 //#endregion
 
 //#region Thunks
@@ -32,7 +35,10 @@ export const fetchProducts = () => dispatch => {
   return axios
     .get("/api/products")
     .then(({ data }) => {
-      console.log("data2: ", data);
+      // console.log("data2: ", data);
+      const filters = getFilters(data);
+      dispatch(setFilters(filters));
+      dispatch(setUserFilters(filters));
       dispatch(fetchProductsSuccess(data));
     })
     .catch(err => dispatch(fetchProductsFailure(err)));
@@ -59,27 +65,4 @@ export const editProduct = (inputValues, history) => dispatch => {
     })
     .catch(err => dispatch(editProductFailure(err)));
 };
-
-// export const filterProducts = (filterOptions, products) => dispatch => {
-//   let filteredList = products.filter(
-//     product => product.price >= filterOptions.minPrice
-//   );
-
-//   filteredList = filteredList.filter(
-//     product => product.price <= filterOptions.maxPrice
-//   );
-
-//   filteredList = filteredList.filter(
-//     product => product.stars <= filterOptions.stars
-//   );
-
-//   filteredList = filteredList.filter(product =>
-//     filterOptions.continent.includes(product.continent)
-//   );
-
-//   dispatch(filterProductsSuccess(filteredList));
-
-//   //  dispatch(fetchProductFailure();
-// };
-
-// //#endregion
+//#endregion

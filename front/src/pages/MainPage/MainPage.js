@@ -2,12 +2,32 @@ import React, { useEffect, useState } from "react";
 import { Input, Row } from "antd";
 import CarouselSlider from "../../components/CarouselSlider/CarouselSlider";
 import { Content } from "../../components/Content/Content.styles";
-// import FilterBar from "../../components/FilterBar/FilterBar";
+import FilterBar from "../../components/FilterBar/FilterBar";
 import Card from "../../components/Card/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../redux/products/thunks";
 
 import Loader from "react-loader-spinner";
+
+const getFilteredProducts = (products, filterOptions) => {
+  let filteredList = products.filter(
+    product => product.price >= filterOptions.minPrice
+  );
+
+  filteredList = filteredList.filter(
+    product => product.price <= filterOptions.maxPrice
+  );
+
+  filteredList = filteredList.filter(
+    product => product.stars <= filterOptions.stars
+  );
+
+  filteredList = filteredList.filter(product =>
+    filterOptions.continent.includes(product.continent)
+  );
+
+  return filteredList;
+};
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -17,15 +37,13 @@ const MainPage = () => {
   const [productList, setProductList] = useState([]);
 
   const { products } = useSelector(state => state.products);
-
-  // useEffect(() => {
-  //   setProductList(filtered);
-  // }, [filtered]);
+  const { initFilters, userFilters } = useSelector(state => state.filters);
 
   useEffect(() => {
-    console.log("1: ", products);
-    setProductList(products);
-  }, [products]);
+    const filterOptions =
+      Object.keys(userFilters).length === 0 ? initFilters : userFilters;
+    setProductList(getFilteredProducts(products, filterOptions));
+  }, [products, initFilters, userFilters]);
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -38,12 +56,30 @@ const MainPage = () => {
           product.title.toLowerCase().indexOf(searchWord.toLowerCase()) !== -1
       );
       setSearchWordProducts(searchWordFilter);
+    } else {
+      setSearchWordProducts([]);
     }
   }, [searchWord, productList]);
 
   const onFilter = e => {
     setSearchWord(e.target.value);
   };
+
+  const NothingFound = () => (
+    <div className="w-100 d-flex justify-content-center">
+      <div>
+        <h1>Nothing found, change filter options</h1>
+        <h2>
+          {userFilters.continent &&
+            userFilters.continent.length === 0 &&
+            "Choose at least one continent"}
+        </h2>
+        <div className="w-100 d-flex justify-content-center">
+          <Loader type="Plane" color="#000" height={80} width={80} />
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <>
@@ -54,7 +90,7 @@ const MainPage = () => {
           "https://www.freegreatpicture.com/files/166/14533-synthesis-of-the-desktop.jpg"
         ]}
       />
-      {/* <FilterBar /> */}
+      <FilterBar />
       <Content>
         <Input
           name="filter"
@@ -63,19 +99,16 @@ const MainPage = () => {
           onChange={onFilter}
         />
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 24 }}>
-          {productList.length === 0 ? (
-            <div className="w-100 d-flex justify-content-center">
-              <div>
-                <h1>Nothing found, change filter options</h1>
-                <div className="w-100 d-flex justify-content-center">
-                  <Loader type="Plane" color="#000" height={80} width={80} />
-                </div>
-              </div>
-            </div>
-          ) : searchWord.trim() !== "" && searchWordProducts.length > 0 ? (
-            searchWordProducts.map((product, index) => (
-              <Card key={index} product={product} />
-            ))
+          {searchWord.trim() !== "" ? (
+            searchWordProducts.length === 0 ? (
+              <NothingFound />
+            ) : (
+              searchWordProducts.map((product, index) => (
+                <Card key={index} product={product} />
+              ))
+            )
+          ) : productList.length === 0 ? (
+            <NothingFound />
           ) : (
             productList.map((product, index) => (
               <Card key={index} product={product} />
