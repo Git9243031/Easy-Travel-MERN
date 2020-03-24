@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Layout } from "./components/Layout/Layout.styles";
+import Navbar from "./components/Navbar/Navbar";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import MainPage from "./pages/MainPage/MainPage";
+import UploadProductPage from "./pages/UploadProductPage/UploadProductPage";
+import SinglePage from "./pages/SinglePage/SinglePage";
+import EditProduct from "./pages/EditProduct/EditProduct";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Layout>
+        <Navbar />
+        <Switch>
+          <Route exact path="/" component={MainPage} />
+          <Route exact path="/products/upload" component={UploadProductPage} />
+          <Route exact path="/products/:id" component={SinglePage} />
+          <Route exact path="/products/edit/:id" component={EditProduct} />
+        </Switch>
+      </Layout>
+    </Router>
   );
-}
+};
 
 export default App;

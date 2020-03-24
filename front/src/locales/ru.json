@@ -1,0 +1,11 @@
+{
+  "buttons.search": "Поиск",
+  "buttons.read": "Читать",
+
+  "nothing-found": "Ничего не найдено, измените параметры фильтров",
+  "choose-filter": "Выберите хотя бы один континент",
+
+  "single-page.features": "Доп. Услуги",
+  "single-page.price": "Цена", 
+  "single-page.continent":"Континент"
+}
