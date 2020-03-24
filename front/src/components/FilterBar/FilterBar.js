@@ -8,7 +8,7 @@ import { FilterBarStyled } from "./FilterBar.styles";
 import { SliderStyled } from "../SliderRange/SliderRange.styles";
 import { Button } from "../Button/Button.styles";
 
-import { setUserFilters } from "../../redux/filters/filters";
+import { setUserFilters } from "../../redux/filters/actions";
 
 const FilterBar = () => {
   const dispatch = useDispatch();
