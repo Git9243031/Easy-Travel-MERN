@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   fetchProductsRequest,
   fetchProductsSuccess,
@@ -12,12 +13,8 @@ import {
   editProductSuccess,
   editProductFailure
 } from "./actions";
-import { setFilters, setUserFilters } from "../filters/filters";
-
-import axios from "axios";
-
+import { setFilters, setUserFilters } from "../filters/actions";
 import { getFilters } from "../../utils/getFilters";
-//#endregion
 
 //#region Thunks
 export const fetchProduct = id => dispatch => {
