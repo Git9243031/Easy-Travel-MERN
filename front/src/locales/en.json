@@ -1,4 +1,10 @@
 {
+"buttons.search": "Search",
+"buttons.read": "Read",
+
+"nothing-found": "Nothing found, change filter options",
+"choose-filter": "Choose at least one continent",
+
 "single-page.features": "Features",
 "single-page.price": "Price",
 "single-page.continent": "Continent"

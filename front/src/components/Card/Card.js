@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Rate, Col } from "antd";
+import { FormattedMessage } from "react-intl";
 
 import { Title } from "../Title/Title";
 import { CardContainer, Price } from "./Card.styles";
@@ -26,7 +27,10 @@ const Card = ({ product }) => {
             disabled={true}
           />
           <ButtonLink width="100%" to={`/products/${_id}`}>
-            Read
+            <FormattedMessage
+              id="buttons.read"
+              defaultMessage="buttons.read"
+            />
           </ButtonLink>
         </div>
       </CardContainer>

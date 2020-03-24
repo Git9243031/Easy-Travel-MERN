@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
+import Loader from "react-loader-spinner";
 import { Input, Row } from "antd";
+import { FormattedMessage } from "react-intl";
+
 import CarouselSlider from "../../components/CarouselSlider/CarouselSlider";
 import { Content } from "../../components/Content/Content.styles";
 import FilterBar from "../../components/FilterBar/FilterBar";
 import Card from "../../components/Card/Card";
+
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../redux/products/thunks";
-
-import Loader from "react-loader-spinner";
 
 const getFilteredProducts = (products, filterOptions) => {
   let filteredList = products.filter(
@@ -68,7 +70,9 @@ const MainPage = () => {
   const NothingFound = () => (
     <div className="w-100 d-flex justify-content-center">
       <div>
-        <h1>Nothing found, change filter options</h1>
+        <h1>
+          <FormattedMessage id="nothing-found" defaultMessage="nothing-found" />
+        </h1>
         <h2>
           {userFilters.continent &&
             userFilters.continent.length === 0 &&

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Rate } from "antd";
 import { useDispatch, useSelector } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 import SelectFilter from "../SelectFilter/SelectFilter";
 import { FilterBarStyled } from "./FilterBar.styles";
@@ -18,19 +19,15 @@ const FilterBar = () => {
 
   React.useEffect(() => {
     setUpdateFilter({ ...filters });
-
-    console.log("Effect updateFilter: ", updateFilter);
   }, [filters]);
 
   const onSelectHandler = e => {
-    console.log("updateFilter: ", updateFilter);
     setUpdateFilter({
       ...updateFilter,
       continent: e
     });
   };
   const onSliderHandler = e => {
-    console.log("updateFilter: ", updateFilter);
     setUpdateFilter({
       ...updateFilter,
       minPrice: e[0],
@@ -38,7 +35,6 @@ const FilterBar = () => {
     });
   };
   const onStarsHandler = e => {
-    console.log("updateFilter: ", updateFilter);
     setUpdateFilter({
       ...updateFilter,
       stars: e
@@ -64,12 +60,14 @@ const FilterBar = () => {
           />
           <Rate
             className="w-50"
-            // defaultValue={stars}
             value={updateFilter.stars}
             onChange={onStarsHandler}
           />
           <Button height="30px" className="w-50" onClick={onFilterHandler}>
-            Search
+            <FormattedMessage
+              id="buttons.search"
+              defaultMessage="buttons.search"
+            />
           </Button>
         </Col>
       </Row>
